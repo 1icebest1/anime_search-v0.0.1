@@ -12,9 +12,9 @@ DATA_DIR = "data/online"
 
 
 class AnimeLoaderThread(QThread):
-    anime_loaded = Signal(dict)  # Исправлено
-    error_occurred = Signal(str)  # Исправлено
-    finished = Signal()  # Исправлено
+    anime_loaded = Signal(dict)  
+    error_occurred = Signal(str)  
+    finished = Signal()  
 
     def __init__(self, parent=None, source_type="video"):
         super().__init__(parent)
@@ -35,7 +35,7 @@ class AnimeLoaderThread(QThread):
         if not os.path.exists(DATA_DIR):
             os.makedirs(DATA_DIR)
 
-    # Остальной код без изменений...
+   
 
     def run(self):
         try:
@@ -49,14 +49,14 @@ class AnimeLoaderThread(QThread):
             self.finished.emit()
 
     def _load_video_sources(self):
-        # Приклад для AniLibria
+        
         url = f"{self.base_urls['video']['ru']}/title/updates"
         response = requests.get(url)
         for item in response.json()[:5]:
             self._process_item(item, "video")
 
     def _load_text_sources(self):
-        # Приклад для AniList
+        
         query = gql("""
             query {
                 Page(page: 1, perPage: 10) {
